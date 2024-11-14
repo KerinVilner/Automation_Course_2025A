@@ -1,3 +1,4 @@
+<div dir="rtl">
 
 # מדריך : מחשבון המרה בין בסיסים
 
@@ -42,4 +43,5 @@
 - בחרו `3` כדי לסיים את התוכנית.
 
 
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👨‍💻**GROUP 1**👨‍💻
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👨‍💻**GROUP 1**👨‍💻
+</div>

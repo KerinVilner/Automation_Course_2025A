@@ -1,0 +1,82 @@
+
+
+
+import re
+
+# Function to convert from decimal base to hexadecimal base
+def decimal_to_hexadecimal(dec_num):
+    if dec_num == 0:
+        return "0"
+    hex_chars = "0123456789ABCDEF"
+    hex_num = ""
+    while dec_num > 0:
+        hex_num = hex_chars[dec_num % 16] + hex_num
+        dec_num = dec_num // 16
+    return hex_num
+
+# Function to convert from hexadecimal base to decimal base
+def hexadecimal_to_decimal(hex_num):
+    hex_chars = "0123456789ABCDEF"
+    hex_num = hex_num.upper() 
+    dec_num = 0
+    for i, digit in enumerate(reversed(hex_num)):
+        dec_num += hex_chars.index(digit) * (16 ** i)
+    return dec_num
+
+# Function that check if the input is a standard hexadecimal number
+def is_hexadecimal(input_str):
+    return bool(re.match('^[0-9A-Fa-f]+$', input_str)) 
+
+# Function to check if the input is a standard decimal number
+def is_valid_decimal(input_str):
+    if '-' in input_str or '.' in input_str:
+        return False
+    try:
+        int(input_str)
+        return True
+    except ValueError:
+        return False
+
+# Calculator function
+def convert_numbers():
+    while True:
+
+        print("\n--- Conversion calculator between bases ---")
+        print("1: Conversion from decimal to hexadecimal base")
+        print("2: Conversion from hexadecimal to decimal base")
+        print("-1: EXIT")
+
+        user_choice = input("Select your choice : ").strip()
+
+        if user_choice == '-1':
+            print("Program finished the job")
+            break
+
+        # Decimal to hexadecimal conversion
+        elif user_choice == '1':  
+            decimal_input = input("Enter a decimal number to convert:").strip()
+            if not is_valid_decimal(decimal_input):
+                print("The input is not standard. You must enter a whole number and not negative or decimal.")
+            elif decimal_input == '0':
+                print("0 in decimal is 0 in hexadecimal.")
+            else:
+                decimal_num = int(decimal_input)
+                print(f"{decimal_num} in decimal is {decimal_to_hexadecimal(decimal_num)} in hexadecimal.")
+
+
+
+        # Hexadecimal to decimal conversion
+        elif user_choice == '2':  
+            hex_input = input("Enter a hexadecimal number to convert: ").strip()
+            if hex_input == '0':
+                print("0 in hexadecimal is 0 in decimal.")
+            elif not is_hexadecimal(hex_input):
+                print("The input is not standard. Enter only valid characters for a hexadecimal number (0-9, A-F).")
+            else:
+                print(f"{hex_input} In hexadecimal is {hexadecimal_to_decimal(hex_input)} in decimal.")
+
+        else:
+            print("Invalid selection, try again.")
+
+# Call to the function that performs the conversion
+convert_numbers()

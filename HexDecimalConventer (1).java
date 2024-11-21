@@ -4,7 +4,7 @@ public class HexDecimalConventer {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String choice;
-        System.out.println("Hex-Decimal Converter");
+        System.out.println("Welcome to Hex-Decimal Converter");
 
         // Main loop
         while (true) {
@@ -140,19 +140,24 @@ public class HexDecimalConventer {
         }
     }
 
-    // Conversion from Hexadecimal to Decimal
+ // Conversion from Hexadecimal to Decimal // changed Req Pool 2 
     private static double hexToDecimal(String hex, int startPower, int endIndex) {
         double result = 0;
-        for (int i = 0; i < hex.length(); i++) {
-            char hexChar = hex.charAt(i);
+        int power = startPower;
+
+        for (char hexChar : hex.toCharArray()) {
             int decimalValue = hexCharToDecimal(hexChar);
+            
             if (decimalValue == -1) {
                 return -1; // Invalid character
             }
-            result += decimalValue * Math.pow(16, startPower - i);
+
+            result += decimalValue * Math.pow(16, power);
+            power--; // Decrease power for next digit
         }
         return result;
     }
+
 
     // Helper to convert hex character to decimal value
     private static int hexCharToDecimal(char hexChar) {
@@ -167,7 +172,7 @@ public class HexDecimalConventer {
         }
     }
 
-    // Validate if input is a valid hexadecimal
+    // Validates if input is a valid hexadecimal
     private static boolean isValidHex(String hex) {
         return hex.matches("^-?[0-9A-Fa-f]+(\\.[0-9A-Fa-f]+)?$");
     }

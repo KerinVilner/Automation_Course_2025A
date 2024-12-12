@@ -1,0 +1,74 @@
+#convert Decimal to Hexadecimal
+def decimal_to_hex(decimal_number):
+    if decimal_number < 0:
+        return "Invalid input: Decimal number must be non-negative."
+
+    if decimal_number == 0:
+        return "0"  # case for 0
+
+    hex_digits = "0123456789ABCDEF"  # Hexadecimal digits for values 0 to 15
+    hex_string = ""  # The result
+
+    while decimal_number > 0:
+        remainder = decimal_number % 16  # Get the remainder
+        hex_string = hex_digits[remainder] + hex_string    # Adds the digit to the result
+        decimal_number //= 16  # Division to reduce the decimal number
+
+    return hex_string.upper()  # Convert to uppercase before returning
+
+
+#convert Hexadecimal to Decimal
+def hex_to_decimal(hex_number):
+    if not hex_number:
+        return "Invalid input: Hexadecimal number cannot be empty."
+
+    hex_digits = "0123456789ABCDEF"
+    decimal_number = 0  # The result
+
+    for i, char in enumerate(hex_number.upper()[::-1]):  # Reverse the string and checks if the input is valid
+        if char not in hex_digits:
+            return "Invalid input: Please enter a valid hexadecimal number."
+
+        decimal_number += hex_digits.index(char) * (16 ** i) # Converts to decimal number
+
+    return decimal_number
+
+
+# Calculator Function
+def calculator():
+    while True:  # Repeat the menu
+        print("Welcome to our Decimal-Hexadecimal Calculator!")
+        print("Choose an option:")
+        print("1. Convert Decimal to Hexadecimal")
+        print("2. Convert Hexadecimal to Decimal")
+        print("3. Quit")
+
+        choice = input("Enter your choice (1/2/3): ")
+
+        if choice == "1":
+            decimal_input = input("Enter a decimal number: ")
+
+            if not decimal_input.isdigit(): #checks if the decimal input is valid
+                print("Invalid input: Decimal number must contain only digits (0-9) and be an integer.")
+                continue
+
+            decimal_input = int(decimal_input)
+            result = decimal_to_hex(decimal_input)
+            print(f"Decimal {decimal_input} is Hexadecimal {result}") #Prints the result
+
+        elif choice == "2":
+            hex_input = input("Enter a hexadecimal number: ")
+            result = hex_to_decimal(hex_input)
+            print(f"Hexadecimal {hex_input} is Decimal {result}") #Prints the result
+
+        elif choice == "3":
+            print("Thank you for using Team 2 calculator :)")
+            break  # Exit the loop and ends the program
+
+        else:
+            print("Invalid choice. Please select 1, 2, or 3.")
+
+
+# Run the calculator
+if __name__ == "__main__":
+    calculator()

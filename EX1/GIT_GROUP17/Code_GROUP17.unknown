@@ -1,0 +1,98 @@
+# Function to convert decimal to hexadecimal
+def decimal_to_hexadecimal(decimal_number):
+    if decimal_number == 0:
+        return "0"
+    
+   # Check if the number is negative
+    is_negative = decimal_number < 0
+    decimal_number = abs(decimal_number)
+    
+    # check the int part
+    whole_part = int(decimal_number)
+    fractional_part = decimal_number - whole_part
+    
+   #convert int part to hexadecimal
+    hex_digits = "0123456789ABCDEF"  # string definition for hexadecimal digits
+    hex_whole = ""
+    while whole_part > 0:
+        remainder = whole_part % 16
+        hex_whole = hex_digits[remainder] + hex_whole
+        whole_part //= 16
+    
+    #check the fractional part
+    hex_fractional = ""
+    while fractional_part > 0 and len(hex_fractional) < 10:  # Limit the maximum length of the decimal part
+        fractional_part *= 16
+        hex_fractional += hex_digits[int(fractional_part)]
+        fractional_part -= int(fractional_part)
+    
+    #combine the parts
+    hex_number = f"{hex_whole or '0'}.{hex_fractional}" if hex_fractional else hex_whole
+    return f"-{hex_number}" if is_negative else hex_number
+
+# function to convert hexadecimal to decimal
+def hexadecimal_to_decimal(hexadecimal_number):
+    hex_digits = "0123456789ABCDEF"  # string definition for hexadecimal digits
+    
+    #check if the number is negative
+    is_negative = hexadecimal_number.startswith("-")
+    if is_negative:
+        hexadecimal_number = hexadecimal_number[1:] 
+    
+    # Split into integer and decimal parts
+    if '.' in hexadecimal_number:
+        whole_part, fractional_part = hexadecimal_number.upper().split('.')
+    else:
+        whole_part, fractional_part = hexadecimal_number.upper(), ""
+    
+    # convert the int part
+    decimal_whole = 0
+    for power, digit in enumerate(reversed(whole_part)):
+        if digit not in hex_digits:
+            raise ValueError(f"Invalid hex digit: {digit}") # error raise
+        decimal_whole += hex_digits.index(digit) * (16 ** power)
+    
+    # convert the fractional part
+    decimal_fractional = 0
+    for power, digit in enumerate(fractional_part, start=1):
+        if digit not in hex_digits:
+            raise ValueError(f"Invalid hex digit: {digit}") # error raise
+        decimal_fractional += hex_digits.index(digit) * (16 ** -power)
+    
+    # combine the parts
+    decimal_number = decimal_whole + decimal_fractional
+    return -decimal_number if is_negative else decimal_number
+
+#codes main menu
+def main():
+    print("Welcome to the Decimal-Hexadecimal Converter!")
+    while True:
+        print("\nChoose an option:")
+        print("1. Convert Decimal to Hexadecimal")
+        print("2. Convert Hexadecimal to Decimal")
+        print("3. Exit")
+        
+        reader = input("Your option: ").strip()
+        if reader == "1":
+            try:
+                decimal_number = float(input("Enter a decimal number: ").strip())
+                print(f"Hexadecimal: {decimal_to_hexadecimal(decimal_number)}")
+            except ValueError as e:
+                print(f"Invalid input: {e}")
+        
+        elif reader == "2":
+            try:
+                hexadecimal_number = input("Enter a hexadecimal number : ").strip()
+                print(f"Decimal: {hexadecimal_to_decimal(hexadecimal_number)}")
+            except ValueError as e:
+                print(f"Invalid input: {e}")
+        
+        elif reader == "3":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+# mains adjust
+if __name__ == "__main__":
+    main()
